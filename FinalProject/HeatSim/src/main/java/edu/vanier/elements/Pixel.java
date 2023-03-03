@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.vanier.template;
+package edu.vanier.elements;
 
 import javafx.scene.paint.Material;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Sphere;
 
 /**
  *
@@ -14,6 +15,7 @@ import javafx.scene.shape.Box;
  */
 public class Pixel extends Box{
     
+    private double totalTime = 0;
     private double tempK;
     private double prevTempK;
     private double tempC;
@@ -38,10 +40,7 @@ public class Pixel extends Box{
     
     
     private Material colour;
-
-    public Pixel(double d, double d1, double d2) {
-        super(d, d1, d2);
-    }
+ 
 
     public Pixel(int i, int j, double d, double d1, double d2) {
         super(d, d1, d2);
@@ -58,6 +57,7 @@ public class Pixel extends Box{
                 + prevTempK;
         
         prevTempK = tempK;
+        totalTime += deltaTime;
         
         
     }
@@ -159,6 +159,15 @@ public class Pixel extends Box{
         this.prevTempK = prevTempK;
     }
 
+    public double getTotalTime() {
+        return this.totalTime;
+    }
+
+    public void setTotalTime(double totalTime) {
+        this.totalTime = totalTime;
+    }
+    
+    
     
     
     
