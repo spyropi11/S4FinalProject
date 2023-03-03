@@ -3,6 +3,7 @@ package edu.vanier.menus;
 import edu.vanier.elements.Pixel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -41,9 +42,19 @@ public class HeatModel extends MainMenu {
     private double upperBoundTemp = 300;
     private double lowerBoundTemp = 300;
     
+    private boolean updatePointer = false;
+    private Pixel pointedPixel;
+    
     private final AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long now) {
+            
+            if(updatePointer == true){
+                
+                //System.out.println("currently hovering");
+                System.out.println(pointedPixel.getTempK());
+                
+            }
             
             /*System.out.println("point: (" + mesh[meshRows/2][meshRows/2].getI() + "," + mesh[meshRows/2][meshRows/2].getJ() + ") , "+ mesh[meshRows/2][meshRows/2].getTempK() + ","
             + mesh[meshRows/2][meshRows/2].getTotalTime() + ", " + mesh[meshRows/2][meshRows/2].getAlpha() + ", "
@@ -59,6 +70,7 @@ public class HeatModel extends MainMenu {
         
         Group group = new Group();
         group.getChildren().add(new AmbientLight());
+        
         
         /* A 3 row and 3 column mesh should look something like:
         
@@ -77,7 +89,7 @@ public class HeatModel extends MainMenu {
             
             for (int j=0; j < meshColumns; j++){
                 
-                mesh[i][j] = new Pixel(i,j,10,10,10);
+                mesh[i][j] = new Pixel(i,j,10,10,0);
                 mesh[i][j].translateYProperty().set(i*10);
                 mesh[i][j].translateXProperty().set(j*10);                
                 
@@ -90,7 +102,21 @@ public class HeatModel extends MainMenu {
                 
                 
                 setBoundaries(pixel);
-               
+                
+                pixel.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                    
+                    if (newValue) {
+                        
+                        //System.out.println("hovering");
+                        pointedPixel = pixel;
+                        updatePointer = true;
+                        
+                    }else{
+                        
+                        updatePointer = false;
+                    }
+                });
+        
                 
                 
                 
@@ -261,22 +287,14 @@ public class HeatModel extends MainMenu {
     
     public void update(){
         
+        
         for (Pixel[] row : mesh){
             for (Pixel pixel : row){
                 
                 if(!pixel.isBoundary()){
                     
-                    /*if(pixel.getI() == 29 && pixel.getJ() == 29){
-                    
-                    pixel.setTempK(500);
-                    pixel.setPrevTempK(500);
-                    
-                    }*/
-                    //pixel.setTempK((500*(Math.pow(Math.E, -(Math.pow(pixel.getI() - meshRows/2, 2) + Math.pow(pixel.getJ() - meshColumns/2, 2))/20))) + 150);
-                    //pixel.setPrevTempK((500*(Math.pow(Math.E, -(Math.pow(pixel.getI() - meshRows/2, 2) + Math.pow(pixel.getJ() - meshColumns/2, 2))/20))) + 150);
                     
                     
-                
                     pixel.updateTempK(mesh);
                 }
                 
