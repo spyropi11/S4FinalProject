@@ -201,7 +201,7 @@ fi
 
 set -- \
         -classpath "$CLASSPATH" \
-        edu.vanier.template.MainApp \
+        edu.vanier.menus.HeatModel \
         "$@"
 
 # Use "xargs" to parse quoted args.

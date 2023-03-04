@@ -71,7 +71,7 @@ set CLASSPATH=%APP_HOME%\lib\HeatSim.jar;%APP_HOME%\lib\javafx-fxml-18.0.2-mac.j
 
 
 @rem Execute HeatSim
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HEAT_SIM_OPTS%  -classpath "%CLASSPATH%" edu.vanier.template.MainApp %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HEAT_SIM_OPTS%  -classpath "%CLASSPATH%" edu.vanier.menus.HeatModel %*
 
 :end
 @rem End local scope for the variables with windows NT shell

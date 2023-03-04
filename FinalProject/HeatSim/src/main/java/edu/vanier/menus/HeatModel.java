@@ -18,6 +18,11 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+//import java.awt.Color;
+
 
 /**
  * This is a JavaFX project template to be used for creating GUI applications.
@@ -28,6 +33,8 @@ import javafx.scene.input.KeyEvent;
  */
 public class HeatModel extends MainMenu {
     
+    private java.awt.Color ColorAWT;
+    
     //This 2D array acts as a mesh that holds all the pixel objects
     private Pixel[][] mesh;
     
@@ -37,10 +44,10 @@ public class HeatModel extends MainMenu {
     private final int meshRows = 60;
     private final int meshColumns = 60;
     
-    private double leftBoundTemp = 300;
-    private double rightBoundTemp = 300;
-    private double upperBoundTemp = 300;
-    private double lowerBoundTemp = 300;
+    private double leftBoundTemp = 260;
+    private double rightBoundTemp = 260;
+    private double upperBoundTemp = 260;
+    private double lowerBoundTemp = 260;
     
     private boolean updatePointer = false;
     private Pixel pointedPixel;
@@ -122,8 +129,8 @@ public class HeatModel extends MainMenu {
                 
                 if(!pixel.isBoundary()){
                 
-                    pixel.setTempK((500*(Math.pow(Math.E, -(Math.pow(pixel.getI() - meshRows/2, 2) + Math.pow(pixel.getJ() - meshColumns/2, 2))/20))) + 300);
-                    pixel.setPrevTempK((500*(Math.pow(Math.E, -(Math.pow(pixel.getI() - meshRows/2, 2) + Math.pow(pixel.getJ() - meshColumns/2, 2))/20))) + 300);
+                    pixel.setTempK((360*(Math.pow(Math.E, -(Math.pow(pixel.getI() - meshRows/2, 2) + Math.pow(pixel.getJ() - meshColumns/2, 2))/20))) + 260);
+                    pixel.setPrevTempK((360*(Math.pow(Math.E, -(Math.pow(pixel.getI() - meshRows/2, 2) + Math.pow(pixel.getJ() - meshColumns/2, 2))/20))) + 260);
 
                 
                 }
@@ -162,7 +169,7 @@ public class HeatModel extends MainMenu {
         camera.setFarClip(100000);
         
         scene.setCamera(camera);
-        scene.setFill(Color.PINK);
+        //scene.setFill(Color.PINK);
         
         
         stage.addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
@@ -272,16 +279,30 @@ public class HeatModel extends MainMenu {
     
     
     public void updateColour(Pixel pixel) {
-        int temperatureC = (int)(255*Math.atan(0.01*pixel.getTempC())/(Math.PI/2));
-        if(temperatureC > 0) {
-            pixel.setMaterial(new PhongMaterial(Color.rgb(temperatureC, 0, 0)));
+        
+        
+        
+        
+        
+        //int pixelHue = (int)(255*Math.atan(0.01*pixel.getTempC())/(Math.PI/2));
+        
+        double pixelHue = (-2.4)*(pixel.getTempK() - 360);
+        
+        //  System.out.println(pixelHue);
+        
+        if(pixel.getTempK() >= 260 && pixel.getTempK() <= 360) {
+            pixel.setMaterial(new PhongMaterial(Color.hsb(pixelHue, 1, 1)));
 
-        }
-        else{
+        }if(pixel.getTempK() < 260){
             
-            pixel.setMaterial(new PhongMaterial(Color.rgb(0, 0, -temperatureC)));
-
+            pixel.setMaterial(new PhongMaterial(Color.hsb(240, 1, 1)));
+            
+        }if(pixel.getTempK() > 360){
+        
+            pixel.setMaterial(new PhongMaterial(Color.hsb(0, 1, 1)));
+        
         }
+        
 
     }
     
