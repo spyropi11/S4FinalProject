@@ -24,7 +24,7 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
-/FinalProject/HeatSim/build/
+FinalProject/HeatSim/build/
 
 
 */*.DS_Store
