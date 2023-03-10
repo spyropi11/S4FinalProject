@@ -2,25 +2,17 @@ package edu.vanier.menus;
 
 import edu.vanier.elements.Pixel;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Box;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 //import java.awt.Color;
 
 
