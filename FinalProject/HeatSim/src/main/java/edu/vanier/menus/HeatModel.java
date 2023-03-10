@@ -33,6 +33,7 @@ public class HeatModel extends MainMenu {
     private final int WIDTH = 1000;
     private final int HEIGHT = 1000;
     
+    
         
     private final int meshRows = 60;
     private final int meshColumns = 60;
