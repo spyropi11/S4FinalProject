@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="157.0" prefWidth="888.0" BorderPane.alignment="CENTER">
+         <children>
+            <Slider fx:id="pressureSlide" layoutX="35.0" layoutY="108.0" max="50.0" prefHeight="18.0" prefWidth="213.0" showTickLabels="true" showTickMarks="true" />
+            <Slider fx:id="volumeSlide" layoutX="344.0" layoutY="108.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" prefHeight="18.0" prefWidth="213.0" showTickLabels="true" showTickMarks="true" />
+            <Slider fx:id="temperatureSlide" layoutX="625.0" layoutY="108.0" majorTickUnit="50.0" max="500.0" prefHeight="18.0" prefWidth="213.0" showTickLabels="true" showTickMarks="true" />
+            <Label layoutX="88.0" layoutY="67.0" prefHeight="24.0" prefWidth="108.0" text="Pressure (atm)" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="408.0" layoutY="68.0" prefHeight="22.0" prefWidth="85.0" text="Volume (L)">
+               <font>
+                  <Font name="Comic Sans MS" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="673.0" layoutY="68.0" text="Temperature (K)">
+               <font>
+                  <Font name="Comic Sans MS" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" graphicTextGap="3.0" layoutX="24.0" layoutY="13.0" prefHeight="44.0" prefWidth="836.0" text="Particle ThermoDynamics" textAlignment="CENTER">
+               <font>
+                  <Font name="Corbel Bold Italic" size="36.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" layoutX="444.0" layoutY="157.0" scaleX="4.4" startX="-100.0" strokeWidth="2.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#727272" height="120.0" layoutX="61.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="125.0" />
+            <RadioButton fx:id="squareRadio" layoutX="23.0" layoutY="75.0" mnemonicParsing="false" />
+            <Polyline fill="#727272" layoutX="124.0" layoutY="224.0" rotate="180.0" scaleX="1.25" strokeType="INSIDE" strokeWidth="2.0">
+              <points>
+                <Double fx:value="-50.0" />
+                <Double fx:value="-40.0" />
+                <Double fx:value="50.0" />
+                <Double fx:value="-40.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="60.0" />
+                <Double fx:value="-50.0" />
+                <Double fx:value="-40.0" />
+              </points>
+            </Polyline>
+            <RadioButton fx:id="triangleRadio" layoutX="23.0" layoutY="223.0" mnemonicParsing="false" />
+            <Line endX="100.0" layoutX="1.0" layoutY="234.0" rotate="90.0" scaleX="3.3" scaleY="2.0" startX="-100.0" strokeWidth="2.0">
+               <rotationAxis>
+                  <Point3D y="1.0" z="1.0" />
+               </rotationAxis>
+            </Line>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
