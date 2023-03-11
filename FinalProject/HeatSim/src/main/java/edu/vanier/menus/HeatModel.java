@@ -13,6 +13,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 //import java.awt.Color;
 
 
@@ -67,8 +68,8 @@ public class HeatModel extends MainMenu {
     @Override
     public void start(Stage stage) throws Exception {
         
-        Group group = new Group();
-        group.getChildren().add(new AmbientLight());
+        Pane HeatModelPane = new Pane();
+        HeatModelPane.getChildren().add(new AmbientLight());
         
         
         /* A 3 row and 3 column mesh should look something like:
@@ -130,7 +131,7 @@ public class HeatModel extends MainMenu {
                 
                 updateColour(pixel);
                 
-                group.getChildren().add(pixel);
+                HeatModelPane.getChildren().add(pixel);
                 //System.out.println("(" + pixel.getI() + "," + pixel.getJ() + ")");
                 
             }
@@ -150,7 +151,7 @@ public class HeatModel extends MainMenu {
         camera.getTransforms().addAll(rotateXAxis,rotateYAxis);
         
         
-        Scene scene = new Scene(group, WIDTH,HEIGHT);
+        Scene scene = new Scene(HeatModelPane, WIDTH,HEIGHT);
 
         camera.translateZProperty().set(-1300);
         camera.translateXProperty().set(meshColumns*5);
