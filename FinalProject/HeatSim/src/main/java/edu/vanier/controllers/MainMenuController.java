@@ -5,6 +5,7 @@
  */
 package edu.vanier.controllers;
 
+import edu.vanier.menus.HeatModel;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,11 +30,26 @@ public class MainMenuController {
         loader.setController(window2);
         BorderPane root = loader.load();
         
-        //root.setCenter(PUT THE SIMULATION HERE);
+        HeatModel heatModelSim = new HeatModel();
+        heatModelSim.heatModelPane.setPrefHeight(600);
+        heatModelSim.heatModelPane.setPrefWidth(600);
+        heatModelSim.heatModelPane.setMaxHeight(700);
+        heatModelSim.heatModelPane.setMaxWidth(700);
+        root.setCenter(heatModelSim.heatModelPane);
+        root.getLeft().setStyle("-fx-background-color: #faecdf;");
+        //root.getCenter().setStyle("-fx-background-color: #faecdf;");
+        root.getTop().setStyle("-fx-background-color: #faecdf;");
         
-        Scene scene = new Scene(root, 1200.0, 1000.0);
+        
+        System.out.println(heatModelSim.heatModelPane.getPrefHeight());
+        System.out.println(heatModelSim.heatModelPane.getPrefWidth());
+        
+        
+        Scene scene = new Scene(root, 1400.0, 750.0);
         secondWindow.setScene(scene);
-
+        
+        //scene.setCamera(heatModelSim.heatModelCamera);
+        //heatModelSim.setCameraControls(secondWindow, scene.getCamera());
         secondWindow.setTitle("Heat Simulation Package");
         secondWindow.sizeToScene();
         secondWindow.show();

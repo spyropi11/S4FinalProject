@@ -34,8 +34,8 @@ public class HeatModel extends MainMenu {
     private final int WIDTH = 1000;
     private final int HEIGHT = 1000;
         
-    private final int meshRows = 60;
-    private final int meshColumns = 60;
+    private final int meshRows = 50;
+    private final int meshColumns = 50;
     
     private double leftBoundTemp = 260;
     private double rightBoundTemp = 260;
@@ -44,6 +44,9 @@ public class HeatModel extends MainMenu {
     
     private boolean updatePointer = false;
     private Pixel pointedPixel;
+    
+    public Camera heatModelCamera;
+    public Pane heatModelPane;
     
     private final AnimationTimer timer = new AnimationTimer() {
         @Override
@@ -65,22 +68,28 @@ public class HeatModel extends MainMenu {
         }
     };
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        
+    
+    //The constructor will initiate the simulation when an instance is created
+    public HeatModel() {
         Pane HeatModelPane = new Pane();
+        
+        System.out.println(HeatModelPane.getHeight());
+        System.out.println(HeatModelPane.getWidth());
+        
+        HeatModelPane.setStyle("-fx-background-color: #caeced;");
+        
         HeatModelPane.getChildren().add(new AmbientLight());
         
         
-        /* A 3 row and 3 column mesh should look something like:
+        // A 3 row and 3 column mesh should look something like:
         
-        [[p,p,p],
-        [p,p,p],
-        [p,p,p]]
+        //[[p,p,p],
+        //[p,p,p],
+        //[p,p,p]]
         
-        in other words, the first [] in Pixel[][] is the amount of sub lists, 
-        and the second [] is the size of each list
-        */
+        //in other words, the first [] in Pixel[][] is the amount of sub lists, 
+        //and the second [] is the size of each list
+        
         
         mesh = new Pixel[meshRows][meshColumns];
         
@@ -90,8 +99,8 @@ public class HeatModel extends MainMenu {
             for (int j=0; j < meshColumns; j++){
                 
                 mesh[i][j] = new Pixel(i,j,10,10,0);
-                mesh[i][j].translateYProperty().set(i*10);
-                mesh[i][j].translateXProperty().set(j*10);                
+                mesh[i][j].translateYProperty().set(i*10 + 100);
+                mesh[i][j].translateXProperty().set(j*10 + 100);                
                 
             }
             
@@ -151,84 +160,41 @@ public class HeatModel extends MainMenu {
         camera.getTransforms().addAll(rotateXAxis,rotateYAxis);
         
         
-        Scene scene = new Scene(HeatModelPane, WIDTH,HEIGHT);
+        //Scene scene = new Scene(HeatModelPane, WIDTH,HEIGHT);
 
-        camera.translateZProperty().set(-1300);
+        //camera.translateZProperty().set(-1300);
         camera.translateXProperty().set(meshColumns*5);
         camera.translateYProperty().set(meshRows*5);
         rotateXAxis.angleProperty().set(0);
         
         camera.setNearClip(1);
-        camera.setFarClip(100000);
+        //camera.setFarClip(100000);
         
-        scene.setCamera(camera);
+        heatModelCamera = camera;
+        heatModelPane = HeatModelPane;
+        //scene.setCamera(camera);
+        
         //scene.setFill(Color.PINK);
         
         
-        stage.addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
-            
-            switch(event.getCode()){
-                
-                case W: 
-                    camera.translateZProperty().set(camera.getTranslateZ() + 100);
-                    break;
-                    
-                case S:
-                    camera.translateZProperty().set(camera.getTranslateZ() - 100);
-                    break;
-                    
-                case D:
-                    camera.translateXProperty().set(camera.getTranslateX() + 50);
-                    break;
-                    
-                case A:
-                    camera.translateXProperty().set(camera.getTranslateX() - 50);
-                    break;
-                    
-                case R:
-                    camera.translateYProperty().set(camera.getTranslateY() - 50);
-                    break;
-                    
-                case F:
-                    camera.translateYProperty().set(camera.getTranslateY() + 150);
-                    break;
-                
-                case N:
-                    rotateXAxis.angleProperty().set(rotateXAxis.getAngle() + 5);
-                    break;
-                    
-                case M:
-                    rotateXAxis.angleProperty().set(rotateXAxis.getAngle() - 5);
-                    break;
-                    
-                case X:
-                    rotateYAxis.angleProperty().set(rotateYAxis.getAngle() + 5);
-                    break;
-                    
-                case C:
-                    rotateYAxis.angleProperty().set(rotateYAxis.getAngle() - 5);
-                    break;
-                
-            }
-            
-            
-        });
         
         
         
-        stage.setTitle("HeatSim");
+        //heatModelScene = scene;
+        
+        /*stage.setTitle("HeatSim");
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+        */
         startTimer();
+        
+        
         
         
     }
 
-    public static void main(String[] args) {
-        launch(args);
-        
-    }
+    
     
     public void setBoundaries(Pixel pixel){
         
@@ -325,6 +291,62 @@ public class HeatModel extends MainMenu {
             }
             
         }
+        
+    }
+    
+    public void setCameraControls(Stage stage, Camera camera){
+        
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
+        
+        switch(event.getCode()){
+        
+        case W:
+        camera.translateZProperty().set(camera.getTranslateZ() + 100);
+        break;
+        
+        case S:
+        camera.translateZProperty().set(camera.getTranslateZ() - 100);
+        break;
+        
+        case D:
+        camera.translateXProperty().set(camera.getTranslateX() + 50);
+        break;
+        
+        case A:
+        camera.translateXProperty().set(camera.getTranslateX() - 50);
+        break;
+        
+        case R:
+        camera.translateYProperty().set(camera.getTranslateY() - 50);
+        break;
+        
+        case F:
+        camera.translateYProperty().set(camera.getTranslateY() + 150);
+        break;
+        
+        /*
+        case N:
+        rotateXAxis.angleProperty().set(rotateXAxis.getAngle() + 5);
+        break;
+        
+        case M:
+        rotateXAxis.angleProperty().set(rotateXAxis.getAngle() - 5);
+        break;
+        
+        case X:
+        rotateYAxis.angleProperty().set(rotateYAxis.getAngle() + 5);
+        break;
+        
+        case C:
+        rotateYAxis.angleProperty().set(rotateYAxis.getAngle() - 5);
+        break;
+        */
+        
+        }
+        
+        
+        });
+        
         
     }
     
