@@ -57,6 +57,7 @@ public class HeatModel extends MainMenu {
                 //System.out.println("currently hovering");
                 System.out.println(pointedPixel.getTempK());
                 
+                
             }
             
             /*System.out.println("point: (" + mesh[meshRows/2][meshRows/2].getI() + "," + mesh[meshRows/2][meshRows/2].getJ() + ") , "+ mesh[meshRows/2][meshRows/2].getTempK() + ","
@@ -116,10 +117,21 @@ public class HeatModel extends MainMenu {
                     if (newValue) {
                         
                         //System.out.println("hovering");
+                        
+                        pixel.setWidth(8);
+                        pixel.setTranslateX(pixel.getTranslateX() + 1);
+                        pixel.setHeight(8);
+                        pixel.setTranslateY(pixel.getTranslateY() + 1);
+                        
                         pointedPixel = pixel;
                         updatePointer = true;
                         
                     }else{
+                        
+                        pixel.setWidth(10);
+                        pixel.setTranslateX(pixel.getTranslateX() - 1);
+                        pixel.setHeight(10);
+                        pixel.setTranslateY(pixel.getTranslateY() - 1);
                         
                         updatePointer = false;
                     }
