@@ -93,12 +93,11 @@ public class HeatModel extends MainMenu {
         
         mesh = new Pixel[meshRows][meshColumns];
         
-        
         for (int i=0; i < meshRows; i++){
             
             for (int j=0; j < meshColumns; j++){
                 
-                mesh[i][j] = new Pixel(i,j,10,10,0);
+                mesh[i][j] = new Pixel(i,j,10,10);
                 mesh[i][j].translateYProperty().set(i*10 + 100);
                 mesh[i][j].translateXProperty().set(j*10 + 100);                
                 
@@ -250,15 +249,15 @@ public class HeatModel extends MainMenu {
         //  System.out.println(pixelHue);
         
         if(pixel.getTempK() >= 260 && pixel.getTempK() <= 360) {
-            pixel.setMaterial(new PhongMaterial(Color.hsb(pixelHue, 1, 1)));
+            pixel.setFill(Color.hsb(pixelHue, 1, 1));
 
         }if(pixel.getTempK() < 260){
             
-            pixel.setMaterial(new PhongMaterial(Color.hsb(240, 1, 1)));
+            pixel.setFill(Color.hsb(240, 1, 1));
             
         }if(pixel.getTempK() > 360){
         
-            pixel.setMaterial(new PhongMaterial(Color.hsb(0, 1, 1)));
+            pixel.setFill(Color.hsb(0, 1, 1));
         
         }
         

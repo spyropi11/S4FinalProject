@@ -7,13 +7,14 @@ package edu.vanier.elements;
 
 import javafx.scene.paint.Material;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Sphere;
 
 /**
  *
  * @author Spyros
  */
-public class Pixel extends Box{
+public class Pixel extends Rectangle{
     
     private double totalTime = 0;
     private double tempK;
@@ -40,13 +41,20 @@ public class Pixel extends Box{
     
     
     private Material colour;
- 
 
-    public Pixel(int i, int j, double d, double d1, double d2) {
-        super(d, d1, d2);
+    public Pixel(int i, int j, double d, double d1) {
+        super(d, d1);
         this.i = i;
         this.j = j;
     }
+ 
+    
+    
+    /*public Pixel(int i, int j, double d, double d1, double d2) {
+    super(d, d1, d2);
+    this.i = i;
+    this.j = j;
+    }*/
     
     
     public void updateTempK(Pixel[][] mesh){
