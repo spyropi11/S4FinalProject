@@ -5,10 +5,9 @@
  */
 package edu.vanier.elements;
 
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Sphere;
 
 /**
  *
@@ -50,26 +49,84 @@ public class Pixel extends Rectangle{
  
     
     
-    /*public Pixel(int i, int j, double d, double d1, double d2) {
-    super(d, d1, d2);
-    this.i = i;
-    this.j = j;
-    }*/
-    
-    
     public void updateTempK(Pixel[][] mesh){
         
-        tempK = ((alpha*deltaTime)
-                *(((mesh[i+1][j].getPrevTempK() + mesh[i-1][j].getPrevTempK() -2*prevTempK)/(Math.pow(deltaX, 2))) 
-                + ((mesh[i][j+1].getPrevTempK() + mesh[i][j-1].getPrevTempK() -2*prevTempK)/(Math.pow(deltaY, 2))))) 
-                + prevTempK;
+        this.tempK = ((alpha*deltaTime)
+                *(((mesh[i+1][j].getPrevTempK() + mesh[i-1][j].getPrevTempK() -2*this.prevTempK)/(Math.pow(deltaX, 2))) 
+                + ((mesh[i][j+1].getPrevTempK() + mesh[i][j-1].getPrevTempK() -2*this.prevTempK)/(Math.pow(deltaY, 2))))) 
+                + this.prevTempK;
         
-        prevTempK = tempK;
+        this.prevTempK = this.tempK;
         totalTime += deltaTime;
         
         
     }
+    
+    public void setBoundaries(int meshRows, int meshColumns, double upperBoundTemp, 
+            double lowerBoundTemp, double rightBoundTemp, double leftBoundTemp){
+        
+        if(this.getI() == 0){
+                    
+            this.setBoundary(true);
+            this.setUpperBound(true);
 
+            this.setTempK(upperBoundTemp);
+            this.setPrevTempK(upperBoundTemp);
+                    
+        }else if(this.getI() == (meshRows - 1)){
+
+            this.setBoundary(true);
+            this.setLowerBound(true);
+
+            this.setTempK(lowerBoundTemp);
+            this.setPrevTempK(lowerBoundTemp);
+
+        }else if(this.getJ() == 0){
+
+            this.setBoundary(true);
+            this.setLeftBound(true);
+
+            this.setTempK(leftBoundTemp);
+            this.setPrevTempK(leftBoundTemp);
+
+        }else if(this.getJ() == (meshColumns -1)){
+
+            this.setBoundary(true);
+            this.setRightBound(true);
+
+            this.setTempK(rightBoundTemp);
+            this.setPrevTempK(rightBoundTemp);
+            
+            
+
+        }
+        
+    }
+
+    
+        public void updateColour() {
+
+        //int pixelHue = (int)(255*Math.atan(0.01*pixel.getTempC())/(Math.PI/2));
+        
+        double pixelHue = (-2.4)*(this.getTempK() - 360);
+        
+        //  System.out.println(pixelHue);
+        
+        if(this.getTempK() >= 260 && this.getTempK() <= 360) {
+            this.setFill(Color.hsb(pixelHue, 1, 1));
+
+        }if(this.getTempK() < 260){
+            
+            this.setFill(Color.hsb(240, 1, 1));
+            
+        }if(this.getTempK() > 360){
+        
+            this.setFill(Color.hsb(0, 1, 1));
+        
+        }
+        
+
+    }
     
     public double getTempK() {
         return this.tempK;

@@ -30,9 +30,9 @@ public class MainMenuController {
         loader.setController(window2);
         BorderPane root = loader.load();
         
-        HeatModel heatModelSim = new HeatModel();
-        heatModelSim.heatModelPane.setPrefHeight(600);
-        heatModelSim.heatModelPane.setPrefWidth(600);
+        HeatModel heatModelSim = new HeatModel(50,50);
+        heatModelSim.heatModelPane.setPrefHeight(700);
+        heatModelSim.heatModelPane.setPrefWidth(700);
         heatModelSim.heatModelPane.setMaxHeight(700);
         heatModelSim.heatModelPane.setMaxWidth(700);
         root.setCenter(heatModelSim.heatModelPane);
