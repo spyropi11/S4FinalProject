@@ -1,30 +1,18 @@
 package edu.vanier.menus;
 
 import edu.vanier.elements.Pixel;
+import edu.vanier.engines.HeatPhysics;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
-import javafx.scene.AmbientLight;
-import javafx.scene.Camera;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 
 public class HeatModel extends MainMenu {
     
-    private java.awt.Color ColorAWT;
-    
     //This 2D array acts as a mesh that holds all the pixel objects
     private Pixel[][] mesh;
     
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 1000;
-        
-    private final int meshRows = 50;
-    private final int meshColumns = 50;
+    private HeatPhysics heatPhysics = new HeatPhysics();
     
     private double leftBoundTemp = 260;
     private double rightBoundTemp = 260;
@@ -34,7 +22,6 @@ public class HeatModel extends MainMenu {
     private boolean updatePointer = false;
     private Pixel pointedPixel;
     
-    public Camera heatModelCamera;
     public Pane heatModelPane;
     
     private final AnimationTimer timer = new AnimationTimer() {
@@ -57,9 +44,9 @@ public class HeatModel extends MainMenu {
     
     //The constructor will initiate the simulation when an instance is created
     public HeatModel(int meshRows, int meshColumns) {
-        Pane HeatModelPane = new Pane();
+        heatModelPane = new Pane();
         
-        HeatModelPane.setStyle("-fx-background-color: #caeced;");
+        heatModelPane.setStyle("-fx-background-color: #caeced;");
         
         
         
@@ -122,14 +109,13 @@ public class HeatModel extends MainMenu {
                 
                 pixel.updateColour();
                 
-                HeatModelPane.getChildren().add(pixel);
+                heatModelPane.getChildren().add(pixel);
                 
             }
             
         }
         
-        heatModelPane = HeatModelPane;
-        
+        //this starts the animation timer, allowing the update method to be called every x seconds
         startTimer();
         
         
@@ -144,7 +130,7 @@ public class HeatModel extends MainMenu {
                 
                 if(!pixel.isBoundary()){
                                         
-                    pixel.updateTempK(mesh);
+                    heatPhysics.updateTempK(mesh, pixel.getI(), pixel.getJ());
                 }
                 pixel.updateColour();
                 

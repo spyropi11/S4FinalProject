@@ -20,6 +20,9 @@ import javafx.stage.Stage;
  */
 public class MainMenuController {
     
+    private int meshRows = 50;
+    private int meshColumns = 50;
+    
     @FXML
     public void handleHeatSimButton() throws IOException {
         Stage secondWindow = new Stage();
@@ -30,11 +33,12 @@ public class MainMenuController {
         loader.setController(window2);
         BorderPane root = loader.load();
         
-        HeatModel heatModelSim = new HeatModel(50,50);
+        HeatModel heatModelSim = new HeatModel(meshRows,meshColumns);
         heatModelSim.heatModelPane.setPrefHeight(700);
         heatModelSim.heatModelPane.setPrefWidth(700);
         heatModelSim.heatModelPane.setMaxHeight(700);
         heatModelSim.heatModelPane.setMaxWidth(700);
+        
         root.setCenter(heatModelSim.heatModelPane);
         root.getLeft().setStyle("-fx-background-color: #faecdf;");
         //root.getCenter().setStyle("-fx-background-color: #faecdf;");

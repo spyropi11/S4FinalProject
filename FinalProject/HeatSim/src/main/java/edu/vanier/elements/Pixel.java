@@ -15,15 +15,9 @@ import javafx.scene.shape.Rectangle;
  */
 public class Pixel extends Rectangle{
     
-    private double totalTime = 0;
     private double tempK;
     private double prevTempK;
     private double tempC;
-    //Shift arctan function!
-    private double alpha = 4;
-    private double deltaTime = 0.02;
-    private double deltaX = 1;
-    private double deltaY = 1;
     
     //this represents the row that a pixel is in
     private int i;
@@ -37,9 +31,6 @@ public class Pixel extends Rectangle{
     private boolean upperBound;
     private boolean lowerBound;
     
-    
-    
-    private Material colour;
 
     public Pixel(int i, int j, double d, double d1) {
         super(d, d1);
@@ -47,20 +38,6 @@ public class Pixel extends Rectangle{
         this.j = j;
     }
  
-    
-    
-    public void updateTempK(Pixel[][] mesh){
-        
-        this.tempK = ((alpha*deltaTime)
-                *(((mesh[i+1][j].getPrevTempK() + mesh[i-1][j].getPrevTempK() -2*this.prevTempK)/(Math.pow(deltaX, 2))) 
-                + ((mesh[i][j+1].getPrevTempK() + mesh[i][j-1].getPrevTempK() -2*this.prevTempK)/(Math.pow(deltaY, 2))))) 
-                + this.prevTempK;
-        
-        this.prevTempK = this.tempK;
-        totalTime += deltaTime;
-        
-        
-    }
     
     public void setBoundaries(int meshRows, int meshColumns, double upperBoundTemp, 
             double lowerBoundTemp, double rightBoundTemp, double leftBoundTemp){
@@ -144,14 +121,6 @@ public class Pixel extends Rectangle{
         this.tempC = tempC;
     }
 
-    public double getAlpha() {
-        return this.alpha;
-    }
-
-    public void setAlpha(double alpha) {
-        this.alpha = alpha;
-    }
-
     public int getI() {
         return this.i;
     }
@@ -174,14 +143,6 @@ public class Pixel extends Rectangle{
 
     public void setBoundary(boolean boundary) {
         this.boundary = boundary;
-    }
-
-    public Material getColour() {
-        return this.colour;
-    }
-
-    public void setColour(Material colour) {
-        this.colour = colour;
     }
 
     public boolean isLeftBound() {
@@ -224,13 +185,6 @@ public class Pixel extends Rectangle{
         this.prevTempK = prevTempK;
     }
 
-    public double getTotalTime() {
-        return this.totalTime;
-    }
-
-    public void setTotalTime(double totalTime) {
-        this.totalTime = totalTime;
-    }
     
     
     
